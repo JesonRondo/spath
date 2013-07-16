@@ -1,0 +1,4 @@
+spath
+=====
+
+static project folder
