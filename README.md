@@ -3,8 +3,10 @@ spath
 
 static project folder
 
-###step
+###install
 
     $ npm install
+
+###built
 
     $ grunt
