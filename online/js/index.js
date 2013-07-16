@@ -1,0 +1,1 @@
+/*! spath - v1.0.0 - LongZhou <pancnlz@gmail.com> 2013-07-16 */var index={print:function(){$("body").append("<p>document ready call</p>")}};$(document).ready(function(){index.print()});

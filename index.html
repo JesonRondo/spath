@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Spath Demo</title>
+</head>
+<body>
+    <p>Spath Demo</p>
+
+    <script src="online/js/lib/loader.min.js"></script>
+    <script>
+        if (location.href.indexOf('?dev') > 0) {
+            var static_path = 'dev/';
+        } else {
+            var static_path = 'online/';
+        }
+
+        var load_scripts = ['http://libs.baidu.com/jquery/1.9.1/jquery.min.js'];
+        Loader.load(load_scripts, function() {
+            Loader.css(static_path + 'css/reset.css', function() {
+                $('body').append('<p>css loaded</p>');
+            });
+
+            Loader.js(static_path + 'js/index.js');
+        });
+    </script>
+</body>
+</html>
