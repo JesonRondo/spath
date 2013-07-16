@@ -1,6 +1,11 @@
 var index = {
     print: function() {
-        $('body').append('<p>document ready call</p>');
+        var flag = true;
+        if (flag) {
+            $('body').append('<p>document ready call ' + flag + '</p>');
+        } else {
+            $('body').append('<p>document ready call ' + flag + '</p>');
+        }
     }
 };
 
