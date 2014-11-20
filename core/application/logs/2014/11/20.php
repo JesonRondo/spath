@@ -437,3 +437,13 @@
 #7 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Request.php(986): Kohana_Request_Client->execute(Object(Request))
 #8 D:\IamRondo\MyWorkExperience\github\spath\core\index.php(119): Kohana_Request->execute()
 #9 {main} in D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\View.php:137
+2014-11-20 09:09:34 --- CRITICAL: ErrorException [ 2 ]: include(D:\IamRondo\MyWorkExperience\github\spath\core\application\../config/app.php): failed to open stream: No such file or directory ~ APPPATH\classes\Controller\router.php [ 12 ] in D:\IamRondo\MyWorkExperience\github\spath\core\application\classes\Controller\router.php:12
+2014-11-20 09:09:34 --- DEBUG: #0 D:\IamRondo\MyWorkExperience\github\spath\core\application\classes\Controller\router.php(12): Kohana_Core::error_handler(2, 'include(D:\IamR...', 'D:\IamRondo\MyW...', 12, Array)
+#1 D:\IamRondo\MyWorkExperience\github\spath\core\application\classes\Controller\router.php(12): Controller_Router::action_index()
+#2 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Controller.php(84): Controller_Router->action_index()
+#3 [internal function]: Kohana_Controller->execute()
+#4 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Router))
+#5 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#6 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Request.php(986): Kohana_Request_Client->execute(Object(Request))
+#7 D:\IamRondo\MyWorkExperience\github\spath\core\index.php(119): Kohana_Request->execute()
+#8 {main} in D:\IamRondo\MyWorkExperience\github\spath\core\application\classes\Controller\router.php:12

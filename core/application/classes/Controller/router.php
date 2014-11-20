@@ -9,7 +9,7 @@ class Controller_Router extends Controller {
     {
 
         $domain = $_SERVER['SERVER_NAME'];
-        $appConfig = include(APPPATH . 'config/app.php');
+        $appConfig = include(APPPATH . '../../config/app.php');
 
         if (!isset($appConfig[$domain])) {
             echo '没有这个项目哦～';
