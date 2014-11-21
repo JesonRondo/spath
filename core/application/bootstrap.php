@@ -132,13 +132,20 @@ Kohana::modules(array(
 	));
 
 /**
- * util
+ * resource
  */
-function dump($params) {
-	echo '<pre>';
-	var_dump($params);
-	echo '</pre>';
-}
+require APPPATH.'common/resource'.EXT;
+
+/**
+ * utils
+ */
+require APPPATH.'common/utils'.EXT;
+
+/**
+ * tpl engine
+ */
+require APPPATH.'common/t'.EXT;
+T::init();
 
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
