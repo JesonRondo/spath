@@ -447,3 +447,18 @@
 #6 D:\IamRondo\MyWorkExperience\github\spath\core\system\classes\Kohana\Request.php(986): Kohana_Request_Client->execute(Object(Request))
 #7 D:\IamRondo\MyWorkExperience\github\spath\core\index.php(119): Kohana_Request->execute()
 #8 {main} in D:\IamRondo\MyWorkExperience\github\spath\core\application\classes\Controller\router.php:12
+2014-11-20 19:07:29 --- EMERGENCY: ErrorException [ 2 ]: include(/data/app/spath/app/www.demo.com/template/default./modules/header.php): failed to open stream: No such file or directory ~ /data/app/spath/app/www.demo.com/template/default/default.php [ 9 ] in /data/app/spath/app/www.demo.com/template/default/default.php:9
+2014-11-20 19:07:29 --- DEBUG: #0 /data/app/spath/app/www.demo.com/template/default/default.php(9): Kohana_Core::error_handler(2, 'include(/data/a...', '/data/app/spath...', 9, Array)
+#1 /data/app/spath/app/www.demo.com/template/default/default.php(9): include()
+#2 /data/app/spath/core/system/classes/Kohana/View.php(61): include('/data/app/spath...')
+#3 /data/app/spath/core/system/classes/Kohana/View.php(348): Kohana_View::capture('/data/app/spath...', Array)
+#4 /data/app/spath/core/system/classes/Kohana/View.php(228): Kohana_View->render()
+#5 /data/app/spath/core/system/classes/Kohana/Response.php(160): Kohana_View->__toString()
+#6 /data/app/spath/core/application/classes/Controller/Router.php(41): Kohana_Response->body(Object(View))
+#7 /data/app/spath/core/system/classes/Kohana/Controller.php(84): Controller_Router->action_index()
+#8 [internal function]: Kohana_Controller->execute()
+#9 /data/app/spath/core/system/classes/Kohana/Request/Client/Internal.php(97): ReflectionMethod->invoke(Object(Controller_Router))
+#10 /data/app/spath/core/system/classes/Kohana/Request/Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#11 /data/app/spath/core/system/classes/Kohana/Request.php(986): Kohana_Request_Client->execute(Object(Request))
+#12 /data/app/spath/core/index.php(119): Kohana_Request->execute()
+#13 {main} in /data/app/spath/app/www.demo.com/template/default/default.php:9

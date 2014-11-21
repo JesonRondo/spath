@@ -6,11 +6,11 @@
     <!--[ CSS PLACEHOLDER ]-->
 </head>
 <body>
-    <?php include(dirname(__FILE__) . './modules/header.php') ?>
+    <?php include(dirname(__FILE__) . '/./modules/header.php') ?>
 
     <?php echo $body; ?>
 
-    <?php include(dirname(__FILE__) . './modules/footer.php') ?>
+    <?php include(dirname(__FILE__) . '/./modules/footer.php') ?>
 
     <!--[ SCRIPT PLACEHOLDER ]-->
 </body>
