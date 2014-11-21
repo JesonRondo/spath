@@ -3,24 +3,30 @@
 // 模版相关
 class T {
     static private $smarty;
+    static public $appConfig;
+    static public $uri;
+    static public $domain;
 
     static public function init() {
         T::$smarty = new Smarty();
 
-        $domain = $_SERVER['SERVER_NAME'];
-        $appConfig = include(APPPATH . '../../config/app.php');
+        T::$domain = $_SERVER['SERVER_NAME'];
 
-        if (!isset($appConfig[$domain])) {
+        T::$uri = $_SERVER['PATH_INFO'];
+        T::$appConfig = require APPPATH . '../../config/app.php';
+        $config = require APPPATH . '../../config/global.php';
+
+        if (!isset(T::$appConfig[T::$domain])) {
             echo '没有这个项目哦～';
             exit;
         }
 
-        $config = $appConfig[$domain];
+        T::$appConfig = T::$appConfig[T::$domain];
 
-        T::$smarty->setTemplateDir(PROJPATH. $config['template'] . '/');
-        T::$smarty->setCompileDir(PROJPATH . $config['template_c'] . '/');
-        T::$smarty->setConfigDir(PROJPATH . $config['configs'] . '/');
-        T::$smarty->setCacheDir(PROJPATH . $config['cache'] . '/');
+        T::$smarty->setTemplateDir(PROJPATH. T::$appConfig['template'] . '/');
+        T::$smarty->setCompileDir(PROJPATH . T::$appConfig['template_c'] . '/');
+        T::$smarty->setConfigDir(PROJPATH . T::$appConfig['configs'] . '/');
+        T::$smarty->setCacheDir(PROJPATH . T::$appConfig['cache'] . '/');
 
         if ($config['debug'] === true) {
             T::$smarty->force_compile = true;
@@ -42,17 +48,27 @@ class T {
 
         $response = T::$smarty->fetch($view . '.tpl');
 
-        $response = str_replace(
+        $response = Utils::replace_placeholder(
             '<!--[ CSS PLACEHOLDER ]-->',
-            Utils::generator_static(Resource::$lesses, 'less'),
+            Resource::$lesses,
+            'less',
+            $response,
+            '<script src="@LIB@/less/less-1.7.3.js"></script>
+            <script>
+                less["logLevel"] = 1;
+                less["env"] = "development";
+                window.overrideLess();
+            </script>'
+        );
+
+        $response = Utils::replace_placeholder(
+            '<!--[ SCRIPT PLACEHOLDER ]-->',
+            Resource::$scripts,
+            'script',
             $response
         );
 
-        $response = str_replace(
-            '<!--[ SCRIPT PLACEHOLDER ]-->',
-            Utils::generator_static(Resource::$scripts, 'script'),
-            $response
-        );
+        $response = Utils::replace_staticflag($response);
 
         echo $response;
         exit;
