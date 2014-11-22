@@ -57,7 +57,7 @@ class Utils {
             // 添加资源路径
             if (strpos($source, '@') !== 0) {
                 if (strpos($source, '/') !== 0) {
-                    $source = '@' . T::$domain . '@' . T::$uri . '/' . $source;
+                    $source = '@' . T::$domain . '@' . '/' . $source;
                 }
             }
 
@@ -73,6 +73,7 @@ class Utils {
 
         foreach ($flags as $key => $value) {
             $mixed = str_replace($key, $value, $mixed);
+            $mixed = str_replace('{$domain}', T::$domain, $mixed);
         }
 
         return $mixed;

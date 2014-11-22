@@ -12,3 +12,25 @@
      |-- guide 前端规范
      |-- lib 基础库
      `-- static 图片资源
+
+### 工具
+
+##### 自动刷新
+
+    chrome plugin - livereload
+
+    grunt live
+
+### 开始
+
+    http://www.demo.com/home
+
+### 更新
+
+2014/11/22
+
+* 移除多余项目
+* 解决本地开发资源文件加载问题
+* 添加全局资源路径变量
+* 添加livereload工具
+* 顺便换了一个HK的VPS

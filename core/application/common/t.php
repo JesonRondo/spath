@@ -35,6 +35,11 @@ class T {
             T::$smarty->force_compile = false;
             T::$smarty->caching = true;
         }
+
+        // 静态资源变量
+        T::$smarty->assign('source_LIB', $config['static_flag']['@LIB@']);
+        T::$smarty->assign('source_COMPONENT', $config['static_flag']['@COMPONENT@']);
+        T::$smarty->assign('source_CDNPATH', $config['static_flag']['@' . T::$domain . '@']);
     }
 
     static public function assign($k, $v) {

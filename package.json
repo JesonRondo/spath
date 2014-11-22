@@ -1,0 +1,15 @@
+{
+  "name": "spath",
+  "version": "1.0.0",
+  "description": "spath",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JesonRondo/spath"
+  },
+  "author": "longzhou",
+  "devDependencies": {
+    "grunt": "",
+    "grunt-livereload": "",
+    "grunt-contrib-watch": ""
+  }
+}
