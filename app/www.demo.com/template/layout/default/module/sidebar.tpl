@@ -33,4 +33,4 @@
 
 </div>
 
-{require_static file="@LAYOUT@/default/style/sidebar.less"}
+{require_static file="layout/default/style/sidebar.less"}

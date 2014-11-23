@@ -1,3 +1,3 @@
 require.config({
-  baseUrl: __.s.CDNPATH,
+  baseUrl: __.s.APP
 });

@@ -32,6 +32,7 @@
 
 {include file="home/module/term.tpl"}
 
+{require_static file="home/script/require.config.js" debug="true"}
 {require_static file="home/home.js"}
 {require_static file="home/home.less"}
 

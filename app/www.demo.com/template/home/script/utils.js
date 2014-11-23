@@ -1,5 +1,5 @@
 define([
-  __.s.LIB + '/doT/doT-1.0.1.js'
+  '@LIB@/doT/doT-1.0.1'
 ], function(doT) {
   var term, str_termlog, tpl_termlog;
 

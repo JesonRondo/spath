@@ -9,8 +9,16 @@ class Utils {
         echo '</pre>';
     }
 
-    // 加载静态资源
-    static public function require_static($path) {
+    /**
+     * 加载静态资源
+     * @param  string  $path  文件路径
+     * @param  boolean $debug 是否为调试模块
+     */
+    static public function require_static($path, $debug = false) {
+        if (!T::$config['debugger'] && $debug === true) {
+            return; // 跳过调试模块
+        }
+
         if (preg_match('/.less$/', $path)
         && in_array($path, Resource::$lesses) === false) {
             Resource::$lesses[] = $path;
@@ -35,7 +43,7 @@ class Utils {
     static public function generator_static($sources, $type) {
         switch ($type) {
             case 'css':
-                $tpl = '<link rel="stylesheet/css" href="$1">';
+                $tpl = '<link rel="stylesheet" href="$1">';
                 break;
 
             case 'less':
@@ -50,34 +58,73 @@ class Utils {
                 return '';
         }
 
-        $config = require APPPATH . '../../config/global.php';
-
-        $refers = '';
-        foreach ($sources as $i => $source) {
-            // 添加资源路径
-            if (strpos($source, '@') !== 0) {
-                if (strpos($source, '/') !== 0) {
-                    $source = '@' . T::$domain . '@' . '/' . $source;
+        if (T::$config['debugger']) {
+            $refers = '';
+            foreach ($sources as $i => $source) {
+                // 添加资源路径
+                if (strpos($source, '@') !== 0) {
+                    if (strpos($source, '/') !== 0) {
+                        $source = '@' . T::$domain . '@' . '/' . $source;
+                    }
                 }
+
+                $refers .= preg_replace('/(\S+)/i', $tpl, $source) . '
+  ';
+            }
+        } else { // 合并请求链接
+            foreach ($sources as $i => $source) {
+                // 添加资源路径
+                if (strpos($source, '@') !== 0) {
+                    if (strpos($source, '/') !== 0) {
+                        $source = '@' . T::$domain . '@' . '/' . $source;
+                    }
+                }
+                $refers[] = preg_replace('/\.less$/i', '.css', $source);
             }
 
-            $refers .= preg_replace('/(\S+)/i', $tpl, $source);
+            $refers = T::$config['cdn_domain']['production'] .'/_' . implode(',', $refers);
+            $refers = preg_replace('/(\S+)/i', $tpl, $refers);
         }
 
         return $refers;
     }
 
     static public function replace_staticflag($mixed) {
-        $config = require APPPATH . '../../config/global.php';
-        $flags = $config['static_flag'];
+        $flags = T::$config['static_flag'];
+
+        if (T::$config['debugger']) {
+            $cdn_domain = T::$config['cdn_domain']['development'];
+        } else {
+            $cdn_domain = '';
+        }
 
         foreach ($flags as $key => $value) {
-            $mixed = str_replace($key, $value, $mixed);
+            $mixed = str_replace($key, $cdn_domain. $value, $mixed);
             $mixed = str_replace('{$domain}', T::$domain, $mixed);
         }
 
         return $mixed;
     }
+
+    // 压缩html
+    static public function higrid_compress_html($higrid_uncompress_html_source) { 
+        $chunks = preg_split('/(<pre.*?\/pre>)/ms', $higrid_uncompress_html_source, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $higrid_uncompress_html_source = ''; // 修改压缩html : 清除换行符,清除制表符,去掉注释标记 
+        foreach ($chunks as $c) {
+            if (strpos( $c, '<pre' ) !== 0) {
+                // remove new lines & tabs
+                $c = preg_replace( '/[\\n\\r\\t]+/', ' ', $c );
+                // remove extra whitespace
+                $c = preg_replace( '/\\s{2,}/', ' ', $c );
+                // remove inter-tag whitespace
+                $c = preg_replace( '/>\\s</', '><', $c );
+                // remove CSS & JS comments
+                $c = preg_replace( '/\\/\\*.*?\\*\\//i', '', $c );
+            }
+            $higrid_uncompress_html_source .= $c;
+        }
+        return $higrid_uncompress_html_source;
+    } 
 }
 
 // public

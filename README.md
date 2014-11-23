@@ -21,11 +21,25 @@
 
     grunt live
 
+#### 合并压缩
+
+    https://minify.googlecode.com/files/minify-2.1.7.zip
+
+#### 发布
+
+    grunt deploy
+
 ### 开始
 
     http://www.demo.com/home
 
 ### 更新
+
+2014/11/23
+
+* 添加模拟数据
+* 添加正式环境模式
+* PHP Minify
 
 2014/11/22
 

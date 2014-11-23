@@ -1,6 +1,6 @@
 require([
   'home/script/utils',
-  __.s.COMPONENT + '/pc.lazyload/lazyload.js'
+  '@COMPONENT@/pc.lazyload/lazyload'
 ], function(utils, lazyload) {
 
   utils.log('home 加载完毕...');
