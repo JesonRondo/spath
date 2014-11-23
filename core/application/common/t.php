@@ -31,6 +31,18 @@ class T {
         if ($config['debug'] === true) {
             T::$smarty->force_compile = true;
             T::$smarty->caching = false;
+
+            // 读取模拟数据
+            $viewPath = $_SERVER['PATH_INFO'];
+            $dataFile = PROJPATH. T::$appConfig['template'] . $viewPath . '/data.php';
+
+            if (file_exists($dataFile)) {
+                $data = require $dataFile;
+
+                foreach ($data as $key => $value) {
+                    T::$smarty->assign($key, $value);
+                }
+            }
         } else {
             T::$smarty->force_compile = false;
             T::$smarty->caching = true;
