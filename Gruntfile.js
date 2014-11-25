@@ -71,7 +71,21 @@ module.exports = function(grunt) {
           out: 'static/d/home/home.js'
         }
       }
-    }
+    },
+
+    cachebuster: {
+      'lib': {
+        options: {
+          format: 'json',
+          basedir: 'static/lib/'
+        },
+        src: [
+          'static/lib/jquery/jquery-1.11.1.js',
+          'static/lib/jquery/jquery-2.1.1.js'
+        ],
+        dest: 'config/static/lib.json'
+      }
+    },
 
   });
 
@@ -80,9 +94,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-cachebuster');
 
   grunt.registerTask('live', ['watch']);
-  grunt.registerTask('deploy_lib', ['copy:lib', 'less:lib']);
+  grunt.registerTask('deploy_lib', ['copy:lib', 'less:lib', 'cachebuster:lib']);
   grunt.registerTask('deploy_component', ['copy:component', 'less:component']);
   grunt.registerTask('deploy_www.demo.com', ['requirejs:www.demo.com', 'less:www.demo.com']);
   grunt.registerTask('deploy', [
