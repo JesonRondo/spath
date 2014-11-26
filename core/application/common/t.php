@@ -38,12 +38,6 @@ class T {
         T::$str_component = file_get_contents(PROJPATH . T::$appConfig['configs'] . '/base/component.json');
         T::$str_page = file_get_contents(PROJPATH . T::$appConfig['configs'] . '/static.json');
 
-        T::assign(array(
-            'source_LIBMAP' => T::$str_lib,
-            'source_COMPONENTMAP' => T::$str_component,
-            'source_APPMAP' => T::$str_page
-        ));
-
         if (T::$config['debugger']) {
             $cdn_domain = T::$config['cdn_domain']['development'];
         } else {
@@ -71,10 +65,16 @@ class T {
         }
 
         // 静态资源变量
-        T::$smarty->assign('source_LIB', T::$config['static_flag']['@LIB@']);
-        T::$smarty->assign('source_COMPONENT', T::$config['static_flag']['@COMPONENT@']);
-        T::$smarty->assign('source_APP', T::$config['static_flag']['@' . T::$domain . '@']);
-        T::$smarty->assign('source_CDNPATH', $cdn_domain);
+        T::assign(array(
+            'source_debugger' => T::$config['debugger'] ? 'true': 'false',
+            'source_CDNPATH' => $cdn_domain,
+            'source_LIB' => T::$config['static_flag']['@LIB@'],
+            'source_LIBMAP' => T::$str_lib,
+            'source_COMPONENT' => T::$config['static_flag']['@COMPONENT@'],
+            'source_COMPONENTMAP' => T::$str_component,
+            'source_APP' => T::$config['static_flag']['@' . T::$domain . '@'],
+            'source_APPMAP' => T::$str_page
+        ));
     }
 
     static public function assign($k, $v = null) {

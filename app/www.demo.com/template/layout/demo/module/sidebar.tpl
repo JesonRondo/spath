@@ -19,7 +19,7 @@
   </div>
 
   <div id="description">
-    <br>Hi, I'm squishyblob, a Singaporean star candy. I work in the day to earn enough to pay tribute to IU goddess. Since a few years back, I took up a second job as a translator to spread the IU love to fans all over the world. Happy scrolling! (Image credit: spinel)
+    <br>Since <i id="J_timer"></i>
 
     <br><br><br>
     <b>
@@ -33,4 +33,4 @@
 
 </div>
 
-{require_static file="layout/default/style/sidebar.less"}
+{require_static file="layout/demo/style/sidebar.less"}

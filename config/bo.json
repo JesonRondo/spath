@@ -12,15 +12,15 @@
       }],
       "normal": [
         "home/script/async",
-        "layout/default/script/require.config"
+        "layout/demo/script/require.config"
       ]
     },
     "less": [
       "home/home",
-      "layout/default/style/index",
-      "layout/default/style/sidebar",
-      "layout/default/style/header",
-      "layout/default/style/footer"
+      "layout/demo/style/index",
+      "layout/demo/style/sidebar",
+      "layout/demo/style/header",
+      "layout/demo/style/footer"
     ]
   }
 }
