@@ -331,6 +331,10 @@ require([
 
   utils.log('lazyload 调用完毕...');
 
+  require(['home/script/async'], function(info) {
+    utils.log(info + ' 加载完毕...');
+  });
+
 });
 
 define("home/home", function(){});

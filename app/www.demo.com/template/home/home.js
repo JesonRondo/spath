@@ -9,4 +9,8 @@ require([
 
   utils.log('lazyload 调用完毕...');
 
+  require([__.s.APPMAP['home/script/async']], function(info) {
+    utils.log(info + ' 加载完毕...');
+  });
+
 });

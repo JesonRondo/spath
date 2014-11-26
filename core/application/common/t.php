@@ -8,6 +8,11 @@ class T {
     static public $uri;
     static public $domain;
 
+
+    static public $str_lib;
+    static public $str_component;
+    static public $str_page;
+
     static public function init() {
         T::$smarty = new Smarty();
 
@@ -28,6 +33,16 @@ class T {
         T::$smarty->setCompileDir(PROJPATH . T::$appConfig['template_c'] . '/');
         T::$smarty->setConfigDir(PROJPATH . T::$appConfig['configs'] . '/');
         T::$smarty->setCacheDir(PROJPATH . T::$appConfig['cache'] . '/');
+
+        T::$str_lib = file_get_contents(PROJPATH . T::$appConfig['configs'] . '/base/lib.json');
+        T::$str_component = file_get_contents(PROJPATH . T::$appConfig['configs'] . '/base/component.json');
+        T::$str_page = file_get_contents(PROJPATH . T::$appConfig['configs'] . '/static.json');
+
+        T::assign(array(
+            'source_LIBMAP' => T::$str_lib,
+            'source_COMPONENTMAP' => T::$str_component,
+            'source_APPMAP' => T::$str_page
+        ));
 
         if (T::$config['debugger']) {
             $cdn_domain = T::$config['cdn_domain']['development'];
@@ -62,8 +77,14 @@ class T {
         T::$smarty->assign('source_CDNPATH', $cdn_domain);
     }
 
-    static public function assign($k, $v) {
-        T::$smarty->assign($k, $v);
+    static public function assign($k, $v = null) {
+        if ($v === null) {
+            foreach ($k as $key => $value) {
+                T::$smarty->assign($key, $value);
+            }
+        } else {
+            T::$smarty->assign($k, $v);
+        }
     }
 
     static public function display($view) {

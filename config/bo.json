@@ -1,0 +1,26 @@
+{
+  "www.demo.com": {
+    "baseUrl": "app/www.demo.com/template",
+    "distPath": "static/d",
+    "staticConfigPath": "../configs/static.json",
+    "script": {
+      "require": [{
+        "config": "home/script/require.config.js",
+        "files": [
+          "home/home"
+        ]
+      }],
+      "normal": [
+        "home/script/async",
+        "layout/default/script/require.config"
+      ]
+    },
+    "less": [
+      "home/home",
+      "layout/default/style/index",
+      "layout/default/style/sidebar",
+      "layout/default/style/header",
+      "layout/default/style/footer"
+    ]
+  }
+}

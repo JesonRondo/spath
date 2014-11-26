@@ -10,10 +10,10 @@
   "devDependencies": {
     "grunt": "",
     "grunt-livereload": "",
+    "grunt-contrib-clean": "",
     "grunt-contrib-copy": "",
     "grunt-contrib-less": "",
     "grunt-contrib-watch": "",
-    "grunt-contrib-requirejs": "",
-    "grunt-cachebuster": ""
+    "grunt-contrib-requirejs": ""
   }
 }

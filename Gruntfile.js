@@ -16,94 +16,126 @@ module.exports = function(grunt) {
       }
     },
 
+    clean: {
+      'built': ['built']
+    },
+
     copy: {
-      'lib': {
+      'lib_built': {
         files: [{
           expand: true,
           src: ['lib/**/*.js'],
+          dest: 'built/static/'
+        }]
+      },
+      'lib': {
+        files: [{
+          expand: true,
+          cwd: 'built/static/',
+          src: ['lib/**/*.js', 'lib/**/*.css'],
           dest: 'static/'
+        }]
+      },
+      'component_built': {
+        files: [{
+          expand: true,
+          src: ['component/**/*.js'],
+          dest: 'built/static/'
         }]
       },
       'component': {
         files: [{
           expand: true,
-          src: ['component/**/*.js'],
+          cwd: 'built/static/',
+          src: ['component/**/*.js', 'component/**/*.css'],
           dest: 'static/'
         }]
       },
     },
 
     less: {
-      'lib': {
+      'lib_built': {
         files: [{
           expand: true,
           src: ['lib/**/*.less'],
-          dest: 'static/',
+          dest: 'built/static/',
           ext: '.css'
         }]
       },
-      'component': {
+      'component_built': {
         files: [{
           expand: true,
           src: ['component/**/*.less'],
-          dest: 'static/',
+          dest: 'built/static/',
           ext: '.css'
         }]
       },
-      'www.demo.com': {
-        files: [{
-          expand: true,
-          cwd: 'app/www.demo.com/template',
-          src: ['**/*.less'],
-          dest: 'static/d/',
-          ext: '.css'
-        }]
-      }
     },
 
-    requirejs: {
-      'www.demo.com': {
-        options: {
-          baseUrl: 'app/www.demo.com/template',
-          mainConfigFile: 'app/www.demo.com/template/home/script/require.config.js',
-          optimize: 'none',
-          name: 'home/home',
-          out: 'static/d/home/home.js'
-        }
-      }
-    },
+    requirejs: {},
 
     cachebuster: {
       'lib': {
         options: {
           format: 'json',
-          basedir: 'static/lib/'
+          basedir: 'built/static/lib/',
+          length: 8
         },
         src: [
-          'static/lib/jquery/jquery-1.11.1.js',
-          'static/lib/jquery/jquery-2.1.1.js'
+          'built/static/lib/**/*.js',
+          'built/static/lib/**/*.css'
         ],
         dest: 'config/static/lib.json'
+      },
+      'component': {
+        options: {
+          format: 'json',
+          basedir: 'built/static/component/',
+          length: 8
+        },
+        src: [
+          'built/static/component/**/*.js',
+          'built/static/component/**/*.css'
+        ],
+        dest: 'config/static/component.json'
+      }
+    },
+
+    pager: {
+      'custom': {
+        options: {
+          config: 'config/bo.json'
+        }
       }
     },
 
   });
 
   grunt.loadNpmTasks('grunt-livereload');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-cachebuster');
+  grunt.loadTasks('./compress/cachebuster');
+  grunt.loadTasks('./compress/compress-pager');
 
   grunt.registerTask('live', ['watch']);
-  grunt.registerTask('deploy_lib', ['copy:lib', 'less:lib', 'cachebuster:lib']);
-  grunt.registerTask('deploy_component', ['copy:component', 'less:component']);
-  grunt.registerTask('deploy_www.demo.com', ['requirejs:www.demo.com', 'less:www.demo.com']);
+  grunt.registerTask('deploy_lib', [
+    'clean:built',
+    'copy:lib_built', 'less:lib_built', 'cachebuster:lib',
+    'copy:lib', 'clean:built'
+  ]);
+  grunt.registerTask('deploy_component', [
+    'clean:built',
+    'copy:component_built', 'less:component_built', 'cachebuster:component',
+    'copy:component', 'clean:built'
+  ]);
+  grunt.registerTask('deploy_pager', ['pager:custom']);
   grunt.registerTask('deploy', [
     'deploy_lib',
     'deploy_component',
-    'deploy_www.demo.com'
+    'deploy_pager'
   ]);
 
 };

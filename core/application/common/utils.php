@@ -72,14 +72,42 @@ class Utils {
   ';
             }
         } else { // 合并请求链接
+            $lib_hash = json_decode(T::$str_lib, true);
+            $component_hash = json_decode(T::$str_component, true);
+            $page_hash = json_decode(T::$str_page, true);
+
             foreach ($sources as $i => $source) {
                 // 添加资源路径
-                if (strpos($source, '@') !== 0) {
-                    if (strpos($source, '/') !== 0) {
+                $source = preg_replace('/\.less$/i', '.css', $source);
+
+                $lib_perfix = '@LIB@/';
+                $component_perfix = '@COMPONENT@/';
+
+                if (strpos($source, $lib_perfix) === 0) {
+                    $source = substr($source, strlen($lib_perfix));
+                    if (isset($lib_hash[$source])) {
+                        $source = $lib_hash[$source];
+                        $source = $lib_perfix . $source;
+                    }
+                } else if (strpos($source, $component_perfix) === 0) {
+                    $source = substr($source, strlen($component_perfix));
+                    if (isset($component_hash[$source])) {
+                        $source = $component_hash[$source];
+                        $source = $component_perfix . $source;
+                    }
+                } else {
+                    if (isset($page_hash[$source])) {
+                        $source = $page_hash[$source];
                         $source = '@' . T::$domain . '@' . '/' . $source;
                     }
                 }
-                $refers[] = preg_replace('/\.less$/i', '.css', $source);
+
+                // if (strpos($source, '@') !== 0) {
+                //     if (strpos($source, '/') !== 0) {
+                //         $source = '@' . T::$domain . '@' . '/' . $source;
+                //     }
+                // }
+                $refers[] = $source;
             }
 
             $refers = T::$config['cdn_domain']['production'] .'/_' . implode(',', $refers);

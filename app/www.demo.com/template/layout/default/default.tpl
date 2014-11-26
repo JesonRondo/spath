@@ -27,7 +27,10 @@
       LIB: '{$source_CDNPATH}{$source_LIB}',
       COMPONENT: '{$source_CDNPATH}{$source_COMPONENT}',
       APP: '{$source_CDNPATH}{$source_APP}',
-      CDNPATH: '{$source_CDNPATH}'
+      CDNPATH: '{$source_CDNPATH}',
+      LIBMAP: {$source_LIBMAP},
+      COMPONENTMAP: {$source_COMPONENTMAP},
+      APPMAP: {$source_APPMAP}
     };
   </script>
   <!--[ SCRIPT PLACEHOLDER ]-->
