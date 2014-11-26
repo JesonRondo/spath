@@ -1,4 +1,5 @@
 node_modules
 template_c
-cache
-logs
+core/application/cache
+core/application/logs
+app/**/cache
